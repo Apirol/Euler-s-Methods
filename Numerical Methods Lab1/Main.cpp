@@ -94,10 +94,8 @@ void Output(std::string filename)
 	file << "n" << "\t" << "x" << "\t" << "u" << "\t" << "y" << "\t" << "u - y" << std::endl;
 
 	int sizeOfVectors = x.size();
-	for (int i = 0; i < sizeOfVectors; i++) 
-	{
-		file << i << "\t";
-		file << std::fixed << x[i] << "\t" << u[i] << "\t" << y[i] << "\t" << approximation[i] << std::endl;
+	for (int i = 0; i < sizeOfVectors; i++) {
+		file << i << "\t" << x[i] << "\t" << u[i] << "\t" << y[i] << "\t" << approximation[i] << std::endl;
 	}
 }
 
