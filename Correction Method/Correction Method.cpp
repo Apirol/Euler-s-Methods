@@ -70,7 +70,7 @@ void Solve()
 void Output(std::string filename)
 {
 	std::fstream file(filename);
-	file.precision(3);
+	file.precision(7);
 
 	file << "n" << "\t" << "x" << "\t" << "u" << "\t" << "uCor" << "\t" << "y" << "\t" << "u - y" << std::endl;
 
