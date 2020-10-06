@@ -1,28 +1,28 @@
 #include <math.h>
 #include <fstream>
 #include <limits>
-#include "ExpEulerMethod.h"
+#include "ImpEulerHeader.h"
 
 
 
 int main()
 {
 	Input();
-	std::string fileNameForStep = "C:/Users/redut/source/repos/Numerical Methods Lab1/Data/FullStep.txt";
+	std::string fileNameForStep = "FullStep.txt";
 
 	Solve();
 	Output(fileNameForStep);
 	ClearVectors();
 
 	step /= 2;
-	fileNameForStep = "C:/Users/redut/source/repos/Numerical Methods Lab1/Data/HalfStep.txt";
+	fileNameForStep = "HalfStep.txt";
 	InitFirstElements();
 	Solve();
 	Output(fileNameForStep);
 	ClearVectors();
 
 	step /= 2;
-	fileNameForStep = "C:/Users/redut/source/repos/Numerical Methods Lab1/Data/QuaterStep.txt";
+	fileNameForStep = "QuaterStep.txt";
 	InitFirstElements();
 	Solve();
 	Output(fileNameForStep);
@@ -47,6 +47,8 @@ void Input()
 	std::cout << "¬ведите шаг: ";
 	std::cin >> step;
 
+	std::cout << "¬ведите гамму: ";
+	std::cin >> gamma;
 
 
 	y.push_back(x0);
@@ -57,7 +59,7 @@ void Input()
 void Solve()
 {
 	int numberOfSteps = (1 / step) + 1;
-	for (int i = 1; i < numberOfSteps; i += 1)
+	for (int i = 1;  i <  numberOfSteps; i += 1)
 	{
 		x.push_back(x[i - 1] + step);
 		y.push_back(x[i] * x[i]);
@@ -70,7 +72,6 @@ void Solve()
 void Output(std::string filename)
 {
 	std::fstream file(filename);
-	std::cout << file.is_open();
 	file.precision(2);
 
 	file << "n" << "\t" << "x" << "\t" << "u" << "\t" << "y" << "\t" << "u - y" << std::endl;

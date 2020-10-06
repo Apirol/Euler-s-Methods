@@ -1,50 +1,28 @@
-#include <iostream>
-#include <vector>
 #include <math.h>
 #include <fstream>
 #include <limits>
+#include "CorrectionHeader.h"
 
-
-typedef std::numeric_limits<double> dbl;
-
-
-double step;
-double x0;
-double u0;
-
-
-std::vector <double> x;
-std::vector <double> u;
-std::vector <double> y;
-std::vector <double> approximation;
-std::vector <double> uCorrection;
-
-
-void Solve();
-void Input();
-void ClearVectors();
-void Output(std::string filename);
-void InitFirstElements();
 
 
 int main()
 {
 	Input();
-	std::string fileNameForStep = "CorrectionWithFullStep.txt";
+	std::string fileNameForStep = "C:/Users/redut/source/repos/Numerical Methods Lab1/Data/CorrectionWithFullStep.txt";
 
 	Solve();
 	Output(fileNameForStep);
 	ClearVectors();
 
 	step /= 2;
-	fileNameForStep = "CorrectionWithHalfStep.txt";
+	fileNameForStep = "C:/Users/redut/source/repos/Numerical Methods Lab1/Data/CorrectionWithHalfStep.txt";
 	InitFirstElements();
 	Solve();
 	Output(fileNameForStep);
 	ClearVectors();
 
 	step /= 2;
-	fileNameForStep = "CorrectionWithQuaterStep.txt";
+	fileNameForStep = "C:/Users/redut/source/repos/Numerical Methods Lab1/Data/CorrectionWithQuaterStep.txt";
 	InitFirstElements();
 	Solve();
 	Output(fileNameForStep);
@@ -98,7 +76,7 @@ void Output(std::string filename)
 
 	int sizeOfVectors = x.size();
 	for (int i = 0; i < sizeOfVectors; i++) {
-		file << i << "\t" << x[i] << "\t" << u[i]  << "\t" << uCorrection[i] << "\t" << y[i] << "\t" << approximation[i] << std::endl;
+		file << i << "\t" << x[i] << "\t" << u[i] << "\t" << uCorrection[i] << "\t" << y[i] << "\t" << approximation[i] << std::endl;
 	}
 }
 

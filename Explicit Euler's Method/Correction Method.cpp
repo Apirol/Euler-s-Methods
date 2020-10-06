@@ -1,28 +1,28 @@
 #include <math.h>
 #include <fstream>
 #include <limits>
-#include "ExpEulerMethod.h"
+#include "CorrectionHeader.h"
 
 
 
 int main()
 {
 	Input();
-	std::string fileNameForStep = "C:/Users/redut/source/repos/Numerical Methods Lab1/Data/FullStep.txt";
+	std::string fileNameForStep = "CorrectionWithFullStep.txt";
 
 	Solve();
 	Output(fileNameForStep);
 	ClearVectors();
 
 	step /= 2;
-	fileNameForStep = "C:/Users/redut/source/repos/Numerical Methods Lab1/Data/HalfStep.txt";
+	fileNameForStep = "CorrectionWithHalfStep.txt";
 	InitFirstElements();
 	Solve();
 	Output(fileNameForStep);
 	ClearVectors();
 
 	step /= 2;
-	fileNameForStep = "C:/Users/redut/source/repos/Numerical Methods Lab1/Data/QuaterStep.txt";
+	fileNameForStep = "CorrectionWithQuaterStep.txt";
 	InitFirstElements();
 	Solve();
 	Output(fileNameForStep);
@@ -47,10 +47,9 @@ void Input()
 	std::cout << "¬ведите шаг: ";
 	std::cin >> step;
 
-
-
 	y.push_back(x0);
 	approximation.push_back(0);
+	uCorrection.push_back(u0);
 }
 
 
@@ -62,7 +61,8 @@ void Solve()
 		x.push_back(x[i - 1] + step);
 		y.push_back(x[i] * x[i]);
 		u.push_back(u[i - 1] + step * ((u[i - 1] / x[i - 1]) + x[i - 1]));
-		approximation.push_back(abs(u[i] - y[i]));
+		uCorrection.push_back(uCorrection[i - 1] + step * ((u[i] / x[i]) + x[i]));
+		approximation.push_back(abs(uCorrection[i] - y[i]));
 	}
 }
 
@@ -70,14 +70,13 @@ void Solve()
 void Output(std::string filename)
 {
 	std::fstream file(filename);
-	std::cout << file.is_open();
-	file.precision(2);
+	file.precision(3);
 
-	file << "n" << "\t" << "x" << "\t" << "u" << "\t" << "y" << "\t" << "u - y" << std::endl;
+	file << "n" << "\t" << "x" << "\t" << "u" << "\t" << "uCor" << "\t" << "y" << "\t" << "u - y" << std::endl;
 
 	int sizeOfVectors = x.size();
 	for (int i = 0; i < sizeOfVectors; i++) {
-		file << i << "\t" << x[i] << "\t" << u[i] << "\t" << y[i] << "\t" << approximation[i] << std::endl;
+		file << i << "\t" << x[i] << "\t" << u[i]  << "\t" << uCorrection[i] << "\t" << y[i] << "\t" << approximation[i] << std::endl;
 	}
 }
 
@@ -97,4 +96,5 @@ void InitFirstElements()
 	y.push_back(x0);
 	u.push_back(u0);
 	approximation.push_back(0);
+	uCorrection.push_back(u0);
 }
